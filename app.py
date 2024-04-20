@@ -2,7 +2,6 @@ import streamlit as st
 import pickle
 import pandas as pd
 import requests
-import gzip  # Import gzip module for decompressing .pkl.gz file
 
 def fetch_poster(movie_id):
     response = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US")
@@ -33,13 +32,10 @@ def recommend(movie):
 # Set page config
 st.set_page_config(layout="wide")
 
-# Load data from compressed pickle file
+# Load data
 movie_dict = pickle.load(open("movies_web.pkl", "rb"))
-
 movies = pd.DataFrame(movie_dict)
-
-with gzip.open("similar_web.pkl.gz", "rb") as f:
-    similar = pickle.load(f)
+similar = pickle.load(open('similar_web.pkl', 'rb'))
 
 # Title
 st.title("Movie recommender System")
