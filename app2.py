@@ -34,8 +34,7 @@ def recommend(movie):
 st.set_page_config(layout="wide")
 
 # Load data from compressed pickle file
-with gzip.open("movies_web.pkl.gz", "rb") as f:
-    movie_dict = pickle.load(f)
+movie_dict = pickle.load(open("movies_web.pkl", "rb"))
 
 movies = pd.DataFrame(movie_dict)
 
